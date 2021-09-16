@@ -9,6 +9,7 @@ To install the tool download the source code. Make sure to have an updated versi
 ### Usage: 
 ```
 Input is required, stylesheet and output folder are optional. Default output folder is "./dist".
+Paths to folders must be absolute.
 ```
 ### Examples:
 ```
