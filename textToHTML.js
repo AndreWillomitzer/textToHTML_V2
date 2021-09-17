@@ -33,7 +33,6 @@ const argv = require('yargs/yargs')(process.argv.slice(2))
 const fs = require('fs');
 const path = require('path');
 let tempString;
-console.log("argv.o: ", argv.o);
 if(argv.o === "./dist"){
   if(fs.existsSync("./dist")){
       fs.rmdirSync("./dist",{recursive: true} , error=>{
@@ -51,17 +50,12 @@ if(argv.o === "./dist"){
 if(fs.existsSync(argv.input)){
   if(fs.lstatSync(argv.input).isDirectory()){ //if the input is a directory
     fs.readdirSync(argv.input).forEach(file =>{
-      //let path = argv.input + "/"+ file;
-      console.log("Directory file names: ", file);
       fs.readFile(path.join(argv.input, file), 'utf-8', function(error, data){
-        //console.log("data in directory file: ", data);
         const html = data
         .split(/\r?\n\r?\n/)
         .map(para =>
           `\n<p>${para.replace(/\r?\n/, ' ')}</p>`
           ).join(' ');
-          
-          //console.log("html value:", html);
           tempString = `<!DOCTYPE html>` + '\n'
           + `<html>\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">` + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
           if(argv.s){
