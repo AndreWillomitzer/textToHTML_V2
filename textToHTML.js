@@ -51,22 +51,50 @@ if(fs.existsSync(argv.input)){
   if(fs.lstatSync(argv.input).isDirectory()){ //if the input is a directory
     fs.readdirSync(argv.input).forEach(file =>{
       fs.readFile(path.join(argv.input, file), 'utf-8', function(error, data){
-        const html = data
-        .split(/\r?\n\r?\n/)
-        .map(para =>
-          `\n<p>${para.replace(/\r?\n/, ' ')}</p>`
-          ).join(' ');
-          tempString = `<!DOCTYPE html>` + '\n'
-          + `<html>\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">` + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
-          if(argv.s){
-            tempString = `<!DOCTYPE html>` + '\n'
-            + `<html>\n<head> \n<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">` + `\n<link rel="stylesheet" href="${argv.s}"> \n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+          if (path.extname(file) === ".txt" ){
+            const html = data
+            .split(/\r?\n\r?\n/)
+            .map(para =>
+              `\n<p>${para.replace(/\r?\n/, ' ')}</p>`
+              ).join(' ');
+              tempString = `<!DOCTYPE html>` + '\n'
+              + `<html>\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">` + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+              if(argv.s){
+                tempString = `<!DOCTYPE html>` + '\n'
+                + `<html>\n<head> \n<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">` + `\n<link rel="stylesheet" href="${argv.s}"> \n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+              }
+              fs.writeFile(`${argv.output}/${path.basename(file, ".txt")}.html`, tempString, error=>{
+                if(error){
+                  throw error;
+                }
+              });
           }
-          fs.writeFile(`${argv.output}/${path.basename(file, ".txt")}.html`, tempString, error=>{
-            if(error){
-              throw error;
-            }
-          });
+
+          if (path.extname(file) === ".md" ){
+            const html = data
+            .split(/[\r?\n\r?\n]/g)
+          .map((line) =>
+            line
+            .replace (/^## (.*$)/gim, '<h2>$1</h2>')
+            .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+            .replace(/(^[a-z](.*)$)/gim, '<p>$1</p>')
+            /*
+            replace any line starting with # and a space with <h1> surrounding itself.
+            replace any line starting with an alphabetical character followed by 0 or more of anything with <p> surrounding itself.
+            */
+          ).join('\n'); //this makes the content a string rather than array.
+              tempString = `<!DOCTYPE html>` + '\n'
+              + `<html>\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">` + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+              if(argv.s){
+                tempString = `<!DOCTYPE html>` + '\n'
+                + `<html>\n<head> \n<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">` + `\n<link rel="stylesheet" href="${argv.s}"> \n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+              }
+              fs.writeFile(`${argv.output}/${path.basename(file, ".txt")}.html`, tempString, error=>{
+                if(error){
+                  throw error;
+                }
+              });
+          }
         })
       })
     }else{ //if the input is a single file
@@ -74,8 +102,37 @@ if(fs.existsSync(argv.input)){
         if(error){
           throw error;
         }
-        //console.log("Data value:", data);        
+
+        if (path.extname(argv.input) === ".md"){
+          //console.log("Data value:", data);        
         const html = data
+          .split(/[\r?\n\r?\n]/g)
+          .map((line) =>
+            line
+            .replace (/^## (.*$)/gim, '<h2>$1</h2>')
+            .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+            .replace(/(^[a-z](.*)$)/gim, '<p>$1</p>')
+            /*
+            replace any line starting with # and a space with <h1> surrounding itself.
+            replace any line starting with an alphabetical character followed by 0 or more of anything with <p> surrounding itself.
+            */
+          ).join('\n'); //this makes the content a string rather than array.
+          tempString = `<!DOCTYPE html>` + '\n'
+          + `<html>\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">` + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+          if(argv.s){
+            tempString = `<!DOCTYPE html>` + '\n'
+            + `<html>\n<head> \n<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">` + `\n<link rel="stylesheet" href="${argv.s}"> \n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+          }
+
+          fs.writeFile(`${argv.output}/${path.basename(argv.input, ".md")}.html`, tempString, error=>{
+            if(error){
+              throw error;
+            }
+          });
+        }
+
+        if(path.extname(argv.input) === ".txt"){
+          const html = data
         .split(/\r?\n\r?\n/)
         .map(para =>
           `\n<p>${para.replace(/\r?\n/, ' ')}</p> </br>`
@@ -91,6 +148,7 @@ if(fs.existsSync(argv.input)){
               throw error;
             }
           });
+        }           
         });
       }      
 }else{
