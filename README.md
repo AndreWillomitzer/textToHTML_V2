@@ -3,7 +3,7 @@
 ### Description:
 
 ```
-textToHTML is a file and folder parser to generate HTML files from txt files. It can be run from the command line.
+textToHTML is a file and folder parser to generate HTML files from txt files. It can be run from the command line. The tool also supporting markdown feature for h1 and h2 tags.
 To install the tool download the source code. Make sure to have an updated version of nodeJS and npm installed. On the command line, type npm install.
 ```
 ### Usage: 
