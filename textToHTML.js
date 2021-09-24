@@ -89,7 +89,7 @@ if(fs.existsSync(argv.input)){
                 tempString = `<!DOCTYPE html>` + '\n'
                 + `<html>\n<head> \n<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">` + `\n<link rel="stylesheet" href="${argv.s}"> \n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
               }
-              fs.writeFile(`${argv.output}/${path.basename(file, ".txt")}.html`, tempString, error=>{
+              fs.writeFile(`${argv.output}/${path.basename(file, ".md")}.html`, tempString, error=>{
                 if(error){
                   throw error;
                 }
