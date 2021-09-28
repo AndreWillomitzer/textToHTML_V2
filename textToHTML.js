@@ -22,6 +22,12 @@ const argv = require('yargs/yargs')(process.argv.slice(2))
     describe: 'stylesheet to be applied to html files.',
     type: 'string'
   }
+  ).option('l', {
+    alias: 'lang',
+    demandOption: false,
+    describe: 'language for the HTML document.',
+    type: 'string'
+  }
   ).alias('h', 'help')
   .alias('v', 'version')
   .alias('i', 'input')
@@ -58,10 +64,10 @@ if(fs.existsSync(argv.input)){
               `\n<p>${para.replace(/\r?\n/, ' ')}</p>`
               ).join(' ');
               tempString = `<!DOCTYPE html>` + '\n'
-              + `<html>\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">` + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+              + `<html lang="${argv.l ? argv.l : "en-CA"}">\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">` + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
               if(argv.s){
                 tempString = `<!DOCTYPE html>` + '\n'
-                + `<html>\n<head> \n<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">` + `\n<link rel="stylesheet" href="${argv.s}"> \n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+                + `<html lang="${argv.l ? argv.l : "en-CA"}">\n<head> \n<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">` + `\n<link rel="stylesheet" href="${argv.s}"> \n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
               }
               fs.writeFile(`${argv.output}/${path.basename(file, ".txt")}.html`, tempString, error=>{
                 if(error){
@@ -84,10 +90,10 @@ if(fs.existsSync(argv.input)){
             */
           ).join('\n'); //this makes the content a string rather than array.
               tempString = `<!DOCTYPE html>` + '\n'
-              + `<html>\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">` + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+              + `<html lang="${argv.l ? argv.l : "en-CA"}">\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">` + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
               if(argv.s){
                 tempString = `<!DOCTYPE html>` + '\n'
-                + `<html>\n<head> \n<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">` + `\n<link rel="stylesheet" href="${argv.s}"> \n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+                + `<html lang="${argv.l ? argv.l : "en-CA"}">\n<head> \n<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">` + `\n<link rel="stylesheet" href="${argv.s}"> \n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
               }
               fs.writeFile(`${argv.output}/${path.basename(file, ".md")}.html`, tempString, error=>{
                 if(error){
@@ -118,10 +124,10 @@ if(fs.existsSync(argv.input)){
             */
           ).join('\n'); //this makes the content a string rather than array.
           tempString = `<!DOCTYPE html>` + '\n'
-          + `<html>\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">` + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+          + `<html lang="${argv.l ? argv.l : "en-CA"}">\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">` + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
           if(argv.s){
             tempString = `<!DOCTYPE html>` + '\n'
-            + `<html>\n<head> \n<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">` + `\n<link rel="stylesheet" href="${argv.s}"> \n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+            + `<html lang="${argv.l ? argv.l : "en-CA"}">\n<head> \n<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">` + `\n<link rel="stylesheet" href="${argv.s}"> \n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
           }
 
           fs.writeFile(`${argv.output}/${path.basename(argv.input, ".md")}.html`, tempString, error=>{
@@ -138,10 +144,10 @@ if(fs.existsSync(argv.input)){
           `\n<p>${para.replace(/\r?\n/, ' ')}</p> </br>`
           ).join(' ');
           tempString = `<!DOCTYPE html>` + '\n'
-          + `<html>\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">` + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+          + `<html lang="${argv.l ? argv.l : "en-CA"}">\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">` + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
           if(argv.s){
             tempString = `<!DOCTYPE html>` + '\n'
-            + `<html>\n<head> \n<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">` + `\n<link rel="stylesheet" href="${argv.s}"> \n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+            + `<html lang="${argv.l ? argv.l : "en-CA"}">\n<head> \n<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">` + `\n<link rel="stylesheet" href="${argv.s}"> \n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
           }
           fs.writeFile(`${argv.output}/${path.basename(argv.input, ".txt")}.html`, tempString, error=>{
             if(error){
