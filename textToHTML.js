@@ -37,13 +37,15 @@ if(argv.o === "./dist"){
   if(fs.existsSync("./dist")){
       fs.rmdirSync("./dist",{recursive: true} , error=>{
         if(error){
-          throw error;
+          console.log("Error removing dist directory.");
+          process.exitCode = -1;
         }
       });
     } //end of ./dist code
     fs.mkdir("./dist", error=>{
       if(error){
-        throw error;
+        console.log("Error creating dist directory.");
+        process.exitCode = -1;
       }
     });
 }
@@ -65,7 +67,8 @@ if(fs.existsSync(argv.input)){
               }
               fs.writeFile(`${argv.output}/${path.basename(file, ".txt")}.html`, tempString, error=>{
                 if(error){
-                  throw error;
+                  console.log("Error writing to directory.");
+                  process.exitCode = -1;
                 }
               });
           }
@@ -91,7 +94,8 @@ if(fs.existsSync(argv.input)){
               }
               fs.writeFile(`${argv.output}/${path.basename(file, ".md")}.html`, tempString, error=>{
                 if(error){
-                  throw error;
+                  console.log("Error writing to directory.");
+                  process.exitCode = -1;
                 }
               });
           }
@@ -100,7 +104,8 @@ if(fs.existsSync(argv.input)){
     }else{ //if the input is a single file
       fs.readFile(argv.input, 'utf8', function(error, data){
         if(error){
-          throw error;
+          console.log("Error reading from input file.");
+          process.exitCode = -1;
         }
 
         if (path.extname(argv.input) === ".md"){
@@ -126,7 +131,8 @@ if(fs.existsSync(argv.input)){
 
           fs.writeFile(`${argv.output}/${path.basename(argv.input, ".md")}.html`, tempString, error=>{
             if(error){
-              throw error;
+              console.log("Error creating HTML file from '.md'.");
+              process.exitCode = -1;
             }
           });
         }
@@ -145,7 +151,8 @@ if(fs.existsSync(argv.input)){
           }
           fs.writeFile(`${argv.output}/${path.basename(argv.input, ".txt")}.html`, tempString, error=>{
             if(error){
-              throw error;
+              console.log("Error creating HTML file from '.txt'.");
+              process.exitCode = -1;
             }
           });
         }           
@@ -153,4 +160,8 @@ if(fs.existsSync(argv.input)){
       }      
 }else{
   console.log("File or folder does not exist.");
+  process.exitCode = -1;
 }
+process.on('exit', (code) => {
+  console.log(`Exiting with code: ${code}`);
+});
