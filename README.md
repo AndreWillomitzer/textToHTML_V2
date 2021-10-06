@@ -19,12 +19,15 @@ node textToHTML -i <filename/foldername> -s <stylesheet url or path> -o <alterna
 node textToHTML --input <filename/foldername> --stylesheet <stylesheet url or path> --output <alternate folder output>
 
 node textToHTML --input <filename/foldername> --stylesheet <stylesheet url or path> 
+
+node textToHTML -c <config JSON filename>
 ```
 ### Features
 ```
 - Supports outputting to a specified folder.
 - Allows adding of custom stylesheets to generated HTML files.
 - If a Markdown file is provided, h1 and h2 headings may be generated using "#" and "##" respectively.
+- Read config file properties and uses them in place of command line arguments.
 ```
 ### Support
 ```
