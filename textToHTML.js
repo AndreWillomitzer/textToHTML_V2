@@ -28,6 +28,11 @@ const argv = require('yargs/yargs')(process.argv.slice(2))
     describe: 'language for the HTML document.',
     type: 'string'
   }
+  ).option('c', {
+    alias: 'config',
+    demandOption: false,
+    describe: 'Accept a file path to a JSON config file.',
+  }
   ).alias('h', 'help')
   .alias('v', 'version')
   .alias('i', 'input')
@@ -55,6 +60,19 @@ if(argv.o === "./dist"){
       }
     });
 }
+//add config
+if(argv.c){
+  const configJson = fs.readFileSync(path.normalize(argv.c));
+  const con = JSON.parse(configJson);
+  argv.input = con.input;
+  argv.stylesheet = con.stylesheet;
+  argv.lang = con.lang;
+  argv.output = con.output || "./dist";
+}else{
+  console.log("Error: Could not read config.json file");
+  process.exitCode = -1;
+}
+
 if(fs.existsSync(argv.input)){
   if(fs.lstatSync(argv.input).isDirectory()){ //if the input is a directory
     fs.readdirSync(argv.input).forEach(file =>{
