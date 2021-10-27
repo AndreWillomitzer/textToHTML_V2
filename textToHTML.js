@@ -2,25 +2,14 @@
 var argv = require('./yargsConfig');
 const fs = require('fs');
 const path = require('path');
+var md = require('markdown-it')({
+  html: true,
+  linkify: true,
+  typographer: true
+});
 
-const headingMarkdown = (content) => { //heading1Markdown() takes the content which is unformatted md file text. 
-  return content.split(/[\r?\n\r?\n]/g)
-  .map((line) =>
-    line
-    .replace (/^## (.*$)/gim, '<h2>$1</h2>')
-    .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-    .replace(/(^[a-z](.*)$)/gim, '<p>$1</p>')
-    /*
-    replace any line starting with # and a space with <h1> surrounding itself.
-    replace any line starting with an alphabetical character followed by 0 or more of anything with <p> surrounding itself.
-    */
-  ).join('\n'); //this makes the content a string rather than array.
-};
-  
 const processMarkdown = (data) => {
-    let processedContent = "";
-    processedContent = headingMarkdown(data);
-    return processedContent;
+    return md.render(data);
 };
 const generatePara = (data) =>{
   return data
