@@ -30,7 +30,7 @@ if(fs.existsSync(argv.input)){
             const html = generatePara(data);
             let styles = argv.s ? `\n<link rel="stylesheet" href="${argv.s}">` : "";
             tempString = `<!DOCTYPE html>` + '\n'
-            + `<html lang="${argv.l ? argv.l : "en-CA"}">\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">`+ `<title>${fileName}</title>` + styles + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+            + `<html lang="${argv.l ? argv.l : "en-CA"}">\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">`+ `\n<title>${fileName}</title>` + styles + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
               fs.writeFile(`${argv.output}/${path.basename(file, ".txt")}.html`, tempString, error=>{
                 if(error){
                   console.log("Error writing to directory.");
