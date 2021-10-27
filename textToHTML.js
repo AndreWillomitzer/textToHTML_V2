@@ -26,10 +26,11 @@ if(fs.existsSync(argv.input)){
       let fileExt = path.extname(file);
       fs.readFile(path.join(argv.input, file), 'utf-8', function(error, data){
           if (path.extname(file) === ".txt" ){
+            let fileName = path.basename(file, ".txt");
             const html = generatePara(data);
             let styles = argv.s ? `\n<link rel="stylesheet" href="${argv.s}">` : "";
             tempString = `<!DOCTYPE html>` + '\n'
-            + `<html lang="${argv.l ? argv.l : "en-CA"}">\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">`+ styles + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+            + `<html lang="${argv.l ? argv.l : "en-CA"}">\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">`+ `<title>${fileName}</title>` + styles + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
               fs.writeFile(`${argv.output}/${path.basename(file, ".txt")}.html`, tempString, error=>{
                 if(error){
                   console.log("Error writing to directory.");
@@ -38,10 +39,11 @@ if(fs.existsSync(argv.input)){
               });
           }
           if (fileExt === ".md" ){
+            let fileName = path.basename(file, ".md");
             const html = processMarkdown(data);
             let styles = argv.s ? `\n<link rel="stylesheet" href="${argv.s}">` : "";
             tempString = `<!DOCTYPE html>` + '\n'
-            + `<html lang="${argv.l ? argv.l : "en-CA"}">\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">`+ styles + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+            + `<html lang="${argv.l ? argv.l : "en-CA"}">\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">`+ `\n<title>${fileName}</title>` + styles + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
               fs.writeFile(`${argv.output}/${path.basename(file, ".md")}.html`, tempString, error=>{
                 if(error){
                   console.log("Error writing to directory.");
@@ -57,12 +59,14 @@ if(fs.existsSync(argv.input)){
           console.log("Error reading from input file.");
           process.exitCode = -1;
         }
-      let fileExt = path.extname(argv.input);
-      if (fileExt === ".md"){
+        let fileExt = path.extname(argv.input);
+        if (fileExt === ".md"){
+        
+        let fileName = path.basename(argv.input, ".md");
         const html = processMarkdown(data);
         let styles = argv.s ? `\n<link rel="stylesheet" href="${argv.s}">` : "";
         tempString = `<!DOCTYPE html>` + '\n'
-        + `<html lang="${argv.l ? argv.l : "en-CA"}">\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">`+ styles + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+        + `<html lang="${argv.l ? argv.l : "en-CA"}">\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">`+ `\n<title>${fileName}</title>` + styles + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
         fs.writeFile(`${argv.output}/${path.basename(argv.input, ".md")}.html`, tempString, error=>{
           if(error){
             console.log("Error creating HTML file from '.md'.");
@@ -71,10 +75,11 @@ if(fs.existsSync(argv.input)){
         });
       }
       if(fileExt === ".txt"){
+          let fileName = path.basename(argv.input, ".txt");
           const html = generatePara(data);
           let styles = argv.s ? `\n<link rel="stylesheet" href="${argv.s}">` : "";
           tempString = `<!DOCTYPE html>` + '\n'
-          + `<html lang="${argv.l ? argv.l : "en-CA"}">\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">`+ styles + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
+          + `<html lang="${argv.l ? argv.l : "en-CA"}">\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">`+ `\n<title>${fileName}</title>` + styles + `\n</head>\n<body>` + `${html}` + `\n</body>\n</html>`;
 
           fs.writeFile(`${argv.output}/${path.basename(argv.input, ".txt")}.html`, tempString, error=>{
             if(error){
