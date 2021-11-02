@@ -1,0 +1,8 @@
+dist
+package.json
+package-lock.json
+node_modules/
+Sherlock_Holmes_Selected_Stories/
+*.json
+*.html
+*.md
