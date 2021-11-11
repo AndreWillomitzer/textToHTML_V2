@@ -34,3 +34,12 @@
 
 - `npm run prettier-check` runs a check against the prettier style guide found in **prettierrc.json** for all JavaScript files. Excludes md, html, css, json files.
 - `npm run prettier` runs the same check and adds --write option to attempt to fix the style issues.
+
+#### Testing Your Changes
+
+- This tool uses a framework called Jest for testing.
+- To write additional tests, look for files ending in `.test.js` or `.spec.js` and find the `describe()` suite that matches the task you want to test.
+- When creating a new test or test suite, please add to the `describe()` or `it()` method what the purpose of the test is. For example `it("should return a string")`.
+- To run all the test suites, type `npm test` in the command line.
+- To exclude a test, you may go into the test file and change `it()` to `xit()` to exclude a single test. 
+- To exclude all tests/suites except one, add the `only()` method to `describe()` or `it()` to run that test suite or individual test.

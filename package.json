@@ -4,12 +4,12 @@
   "description": "a text to html parser",
   "main": "textToHTML.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "prettier": "prettier --write \"./**/*.js\"",
     "prettier-check": "prettier --check \"./**/*.js\"",
     "eslint": "eslint --config .eslintrc.json",
     "eslint-fix": "eslint --config .eslintrc.json --fix",
-    "lint": "npm run eslint"
+    "lint": "npm run eslint",
+    "test": "jest"
   },
   "keywords": [
     "cli"
@@ -24,6 +24,7 @@
     "eslint": "^8.1.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.3.1",
     "prettier": "2.4.1"
   }
 }
