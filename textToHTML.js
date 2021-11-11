@@ -153,3 +153,4 @@ if (fs.existsSync(argv.input)) {
 process.on("exit", (code) => {
   console.log(`Exiting with code: ${code}`);
 });
+module.exports = { processMarkdown, generatePara };
