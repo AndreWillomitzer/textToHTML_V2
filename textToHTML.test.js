@@ -30,7 +30,7 @@ describe("it should process various Markdown combinations", () => {
   it("it should return h3", () => {
     const testString = "### Should be inside h3.";
     const returnResult = processMarkdown(testString);
-    const expectedResult = "<h3>Should be inside h3.</h3>";
+    const expectedResult = "<h3Should be inside h3.</h3>";
     expect(returnResult).toContain(expectedResult); //change to stringMatching
   });
 
