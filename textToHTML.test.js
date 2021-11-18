@@ -61,7 +61,6 @@ describe("it should process various Markdown combinations", () => {
     const testMarkdown = "```\nlet number = 2\n```";
     const returnResult = processMarkdown(testMarkdown);
     const expectedResult = "<pre><code>let number = 2\n</code></pre>";
-    console.log(returnResult);
     expect(returnResult).toContain(expectedResult);
   });
 });
