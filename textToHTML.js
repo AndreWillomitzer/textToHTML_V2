@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const fs = require("fs");
 const path = require("path");
+const { htmlTemplate } = require("./htmlTemplate");
 var argv = require("./yargsConfig");
 var md = require("markdown-it")({
   html: true,
@@ -28,20 +29,8 @@ if (fs.existsSync(argv.input)) {
         if (path.extname(file) === ".txt") {
           let fileName = path.basename(file, ".txt");
           const html = generatePara(data);
-          let styles = argv.s
-            ? `\n<link rel="stylesheet" href="${argv.s}">`
-            : "";
-          tempString =
-            `<!DOCTYPE html>` +
-            "\n" +
-            `<html lang="${
-              argv.l ? argv.l : "en-CA"
-            }">\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">` +
-            `\n<title>${fileName}</title>` +
-            styles +
-            `\n</head>\n<body>` +
-            `${html}` +
-            `\n</body>\n</html>`;
+          tempString = htmlTemplate(argv.s, fileName, argv.l, html);
+
           fs.writeFile(
             `${argv.output}/${path.basename(file, ".txt")}.html`,
             tempString,
@@ -56,20 +45,8 @@ if (fs.existsSync(argv.input)) {
         if (fileExt === ".md") {
           let fileName = path.basename(file, ".md");
           const html = processMarkdown(data);
-          let styles = argv.s
-            ? `\n<link rel="stylesheet" href="${argv.s}">`
-            : "";
-          tempString =
-            `<!DOCTYPE html>` +
-            "\n" +
-            `<html lang="${
-              argv.l ? argv.l : "en-CA"
-            }">\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">` +
-            `\n<title>${fileName}</title>` +
-            styles +
-            `\n</head>\n<body>` +
-            `${html}` +
-            `\n</body>\n</html>`;
+          tempString = htmlTemplate(argv.s, fileName, argv.l, html);
+
           fs.writeFile(
             `${argv.output}/${path.basename(file, ".md")}.html`,
             tempString,
@@ -94,18 +71,8 @@ if (fs.existsSync(argv.input)) {
       if (fileExt === ".md") {
         let fileName = path.basename(argv.input, ".md");
         const html = processMarkdown(data);
-        let styles = argv.s ? `\n<link rel="stylesheet" href="${argv.s}">` : "";
-        tempString =
-          `<!DOCTYPE html>` +
-          "\n" +
-          `<html lang="${
-            argv.l ? argv.l : "en-CA"
-          }">\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">` +
-          `\n<title>${fileName}</title>` +
-          styles +
-          `\n</head>\n<body>` +
-          `${html}` +
-          `\n</body>\n</html>`;
+        tempString = htmlTemplate(argv.s, fileName, argv.l, html);
+
         fs.writeFile(
           `${argv.output}/${path.basename(argv.input, ".md")}.html`,
           tempString,
@@ -120,18 +87,7 @@ if (fs.existsSync(argv.input)) {
       if (fileExt === ".txt") {
         let fileName = path.basename(argv.input, ".txt");
         const html = generatePara(data);
-        let styles = argv.s ? `\n<link rel="stylesheet" href="${argv.s}">` : "";
-        tempString =
-          `<!DOCTYPE html>` +
-          "\n" +
-          `<html lang="${
-            argv.l ? argv.l : "en-CA"
-          }">\n<head> \n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">` +
-          `\n<title>${fileName}</title>` +
-          styles +
-          `\n</head>\n<body>` +
-          `${html}` +
-          `\n</body>\n</html>`;
+        tempString = htmlTemplate(argv.s, fileName, argv.l, html);
 
         fs.writeFile(
           `${argv.output}/${path.basename(argv.input, ".txt")}.html`,
