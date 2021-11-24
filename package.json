@@ -1,5 +1,5 @@
 {
-  "name": "texttohtml",
+  "name": "texttohtmlv2",
   "version": "1.0.0",
   "description": "a text to html parser",
   "main": "textToHTML.js",
