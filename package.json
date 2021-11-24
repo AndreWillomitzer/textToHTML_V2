@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "a text to html parser",
   "main": "textToHTML.js",
+  "bin": "textToHTML.js",
   "scripts": {
     "prettier": "prettier --write \"./**/*.js\"",
     "prettier-check": "prettier --check \"./**/*.js\"",
