@@ -5,8 +5,12 @@
 ```
 textToHTML is a file and folder parser to generate HTML files from txt and markdown files. It can be run from the command line.
 The tool also supports markdown features.
-To install the tool download the source code. Make sure to have an updated version of nodeJS and npm installed. On the command line, type npm install.
 ```
+
+### Installation
+
+* To install the tool, make sure you have a version of npm/npx.
+* From the project directory, run `npx texttohtmlv2`
 
 ### Usage:
 
@@ -18,13 +22,13 @@ Input is required, stylesheet and output folder are optional. Default output fol
 ### Examples:
 
 ```
-node textToHTML -i <filename/foldername> -s <stylesheet url or path> -o <alternate folder output>
+npx texttohtmlv2 -i <filename/foldername> -s <stylesheet url or path> -o <alternate folder output>
 
-node textToHTML --input <filename/foldername> --stylesheet <stylesheet url or path> --output <alternate folder output>
+npx texttohtmlv2 --input <filename/foldername> --stylesheet <stylesheet url or path> --output <alternate folder output>
 
-node textToHTML --input <filename/foldername> --stylesheet <stylesheet url or path>
+npx texttohtmlv2 --input <filename/foldername> --stylesheet <stylesheet url or path>
 
-node textToHTML -c <config JSON filename>
+npx texttohtmlv2 -c <config JSON filename>
 ```
 
 ### Features
@@ -39,7 +43,7 @@ node textToHTML -c <config JSON filename>
 ### Support
 
 ```
-- node textToHTML.js --help or -h displays a help menu with options/commands available.
+- npx texttohtmlv2 --help or -h displays a help menu with options/commands available.
 ```
 
 ### Sample Output
@@ -98,9 +102,9 @@ what I had both expected and hoped for.</p> </br>
 </html>
 ```
 
-## NEW FEATURE: Markdown h1 and h2
+### Markdown Processing
 
-#### The Input Markdown:
+##### The Input Markdown:
 
 ```
 I was not surprised. Indeed, my only wonder was that he had not
